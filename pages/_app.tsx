@@ -1,6 +1,8 @@
 import * as React from "react";
 import { QueryClient } from "react-query";
 import { MedusaProvider } from "medusa-react";
+import type { AppProps } from "next/app";
+import "../styles/globals.css";
 
 // Your react-query's query client config
 const queryClient = new QueryClient({
@@ -12,9 +14,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
