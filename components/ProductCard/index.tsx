@@ -1,7 +1,12 @@
 import React from "react";
+import { Product } from "@medusajs/medusa";
 
-const ProductCard = () => {
-  return <div>product name</div>;
+export interface ProductCardProps {
+  product: Product;
+}
+
+const ProductCard = ({ product }: ProductCardProps) => {
+  return <div>{product.title}</div>;
 };
 
 export default ProductCard;

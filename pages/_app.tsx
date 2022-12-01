@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <MedusaProvider
       queryClientProviderProps={{ client: queryClient }}
-      baseUrl="http://localhost:9000"
+      baseUrl="/api"
     >
       <Component {...pageProps} />
     </MedusaProvider>
