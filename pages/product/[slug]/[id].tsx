@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { observer } from "mobx-react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
@@ -7,16 +8,22 @@ import { useProduct } from "medusa-react";
 import { ProductVariant } from "@medusajs/medusa";
 import Select from "../../../components/Select";
 import QuantitySelector from "../../../components/QuantitySelector";
+import { useCartStore } from "../../../store";
 
 const INITIAL_QUANTITY = 1;
 
-const ProductPage = () => {
+const ProductPage = observer(() => {
+  const cartStore = useCartStore();
   const router = useRouter();
   const { id } = router.query;
   const { product } = useProduct(id as string);
   const [selectedQuantity, setSelectedQuantity] = useState(INITIAL_QUANTITY);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>();
   const [price, setPrice] = useState("--");
+
+  useEffect(() => {
+    console.log(JSON.parse(JSON.stringify(cartStore.items)));
+  }, [cartStore.items]);
 
   return product ? (
     <>
@@ -28,7 +35,7 @@ const ProductPage = () => {
 
       <div className="flex flex-col w-full h-full">
         <div className="flex justify-center py-2">
-          <Link href="https://medusajs.com/">
+          <Link href="/">
             <Image src="/logo.svg" alt="Medusa Logo" width={72} height={16} />
           </Link>
         </div>
@@ -58,7 +65,7 @@ const ProductPage = () => {
             <button
               onClick={() => {
                 if (selectedVariant) {
-                  console.log("add to cart", selectedQuantity, selectedVariant);
+                  cartStore.add(selectedQuantity, selectedVariant);
                 }
               }}
               className={`inline-block mt-4 py-2 px-4 ${
@@ -74,6 +81,6 @@ const ProductPage = () => {
       </div>
     </>
   ) : null;
-};
+});
 
 export default ProductPage;
