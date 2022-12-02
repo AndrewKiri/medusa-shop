@@ -1,12 +1,15 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import { useProduct } from "medusa-react";
+import Select from "../../../components/Select";
 
-const Product = () => {
+const ProductPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const { product } = useProduct(id as string);
+  const [price, setPrice] = useState("");
 
   return product ? (
     <>
@@ -26,8 +29,15 @@ const Product = () => {
           </div>
           <div className="flex flex-col grow p-8">
             <span className="text-xl font-semibold">{product.title}</span>
-            <span className="text-base mt-4">price</span>
+            <span className="text-base mt-4">{price}</span>
             <span className="text-sm mt-8">{product.description}</span>
+            <Select
+              variants={product?.variants}
+              onChange={(option) => {
+                const price = option?.data?.prices[0];
+                setPrice(`€ ${(price?.amount / 100).toFixed(2)}`);
+              }}
+            />
           </div>
         </div>
       </div>
@@ -35,4 +45,4 @@ const Product = () => {
   ) : null;
 };
 
-export default Product;
+export default ProductPage;

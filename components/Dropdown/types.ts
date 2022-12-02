@@ -6,4 +6,5 @@ export interface DropdownProps {
   cta?: ReactNode;
   onClickAway?: (event: Event) => void;
   className?: string;
+  containerClassName?: string;
 }

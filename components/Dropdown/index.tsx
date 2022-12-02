@@ -12,6 +12,7 @@ export const Dropdown = ({
   cta,
   shouldShow,
   className,
+  containerClassName,
 }: DropdownProps) => {
   const ref = useRef(null);
 
@@ -22,7 +23,10 @@ export const Dropdown = ({
   });
 
   return (
-    <div className="flex flex-col relative" ref={ref}>
+    <div
+      className={classNames("flex flex-col relative", containerClassName)}
+      ref={ref}
+    >
       {cta}
       <AnimatePresence>
         {shouldShow && (
@@ -33,7 +37,7 @@ export const Dropdown = ({
             exit={{ opacity: 0, y: 30 }}
             className={classNames(
               twMerge(
-                "absolute top-full min-w-full flex flex-col shadow-lightSmall py-1 bg-light-gray-1 dark:bg-dark-gray-1 rounded-md mt-1 max-h-96 overflow-y-scroll z-10 border border-light-gray-3",
+                "absolute top-full min-w-full flex flex-col py-1 mt-1 max-h-96 overflow-y-scroll z-10 border-solid border-2 border-slate-200",
                 className
               )
             )}
