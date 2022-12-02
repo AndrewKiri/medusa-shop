@@ -14,6 +14,7 @@ const ProductPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const { product } = useProduct(id as string);
+  const [shouldShowSuccess, setShouldShowSuccess] = useState(false);
   const [selectedQuantity, setSelectedQuantity] = useState(INITIAL_QUANTITY);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>();
   const [price, setPrice] = useState("--");
@@ -26,7 +27,15 @@ const ProductPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex flex-col w-full h-full">
+      <div className="relative flex flex-col w-full h-full">
+        {shouldShowSuccess && selectedVariant && (
+          <div className="w-full flex flex-row justify-center">
+            <div className="flex flex-col bg-slate-200 rounded-md py-4 px-6 fixed z-10 top-48 drop-shadow-md">
+              <span>Congratulations!</span>
+              <span>{`You've added to cart ${product?.title} - ${selectedVariant?.title}, quantity: ${selectedQuantity}`}</span>
+            </div>
+          </div>
+        )}
         <div className="flex justify-center py-2">
           <Link href="https://medusajs.com/">
             <Image src="/logo.svg" alt="Medusa Logo" width={72} height={16} />
@@ -58,7 +67,10 @@ const ProductPage = () => {
             <button
               onClick={() => {
                 if (selectedVariant) {
-                  console.log("add to cart", selectedQuantity, selectedVariant);
+                  setShouldShowSuccess(true);
+                  setTimeout(() => {
+                    setShouldShowSuccess(false);
+                  }, 4500);
                 }
               }}
               className={`inline-block mt-4 py-2 px-4 ${

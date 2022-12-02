@@ -9,7 +9,7 @@ const ProductsGrid = (): JSX.Element | null => {
   if (isLoading) return <div>loading...</div>;
 
   return shouldShowProducts ? (
-    <div className="h-full grid grid-cols-4 grid-rows-3 gap-x-3 gap-y-3 p-3">
+    <div className="h-full grid grid-cols-4 grid-rows-2 gap-x-3 gap-y-3 p-3">
       {products.map((product) => (
         <Fragment key={product.id}>
           <ProductCard product={product} />

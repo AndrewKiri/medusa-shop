@@ -1,5 +1,16 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Launch Instructions
+The app expects URL to be set in .env file (in gitignore by default)
+
+For the local dev setup it is recommended to follow quick start steps outlined in [Medusa server installation guide](https://docs.medusajs.com/quickstart/quick-start/)
+
+Once the medusa server is up and running on port 9000, you can copy or rename `.env.template` file to `.env`
+
+After it is done, you can proceed to "Getting Started" section and start Next.js client app as usually.
+
+For production launch - production URL is expected to be set as environment variable 
+
 ## Getting Started
 
 First, run the development server:
