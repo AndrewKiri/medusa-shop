@@ -4,13 +4,18 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import { useProduct } from "medusa-react";
+import { ProductVariant } from "@medusajs/medusa";
 import Select from "../../../components/Select";
 import QuantitySelector from "../../../components/QuantitySelector";
+
+const INITIAL_QUANTITY = 1;
 
 const ProductPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const { product } = useProduct(id as string);
+  const [selectedQuantity, setSelectedQuantity] = useState(INITIAL_QUANTITY);
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant>();
   const [price, setPrice] = useState("--");
 
   return product ? (
@@ -36,13 +41,34 @@ const ProductPage = () => {
             <span className="text-base mt-4">{price}</span>
             <span className="text-sm mt-8">{product.description}</span>
             <Select
+              className="mt-12"
               variants={product?.variants}
               onChange={(option) => {
+                setSelectedVariant(option?.data);
+
                 const price = option?.data?.prices[0];
                 setPrice(`€ ${(price?.amount / 100).toFixed(2)}`);
               }}
             />
-            <QuantitySelector className="mt-8" />
+            <QuantitySelector
+              initialQuantity={INITIAL_QUANTITY}
+              onChange={setSelectedQuantity}
+              className="mt-4"
+            />
+            <button
+              onClick={() => {
+                if (selectedVariant) {
+                  console.log("add to cart", selectedQuantity, selectedVariant);
+                }
+              }}
+              className={`inline-block mt-4 py-2 px-4 ${
+                selectedVariant
+                  ? "bg-indigo-600 hover:bg-indigo-700 cursor-pointer text-white"
+                  : "bg-indigo-100 cursor-not-allowed text-indigo-300"
+              }`}
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

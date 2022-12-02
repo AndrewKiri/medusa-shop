@@ -7,10 +7,11 @@ import { ProductVariant } from "@medusajs/medusa";
 export interface SelectProps {
   variants: ProductVariant[];
   onChange?: (option: Option<ProductVariant>) => void;
+  className?: string;
 }
 
 const Select = (props: SelectProps) => {
-  const { variants, onChange } = props;
+  const { variants, onChange, className } = props;
   const { shouldShow, show, hide } = useShowable();
   const { selection, toggleSelection } = useSelection<ProductVariant>({
     onSelect: onChange,
@@ -19,7 +20,7 @@ const Select = (props: SelectProps) => {
 
   return variants ? (
     <Dropdown
-      containerClassName="mt-8"
+      containerClassName={className}
       cta={
         <button
           onClick={show}

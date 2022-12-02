@@ -4,10 +4,15 @@ import { twMerge } from "tailwind-merge";
 export interface QuantitySelectorProps {
   onChange?: (quantity: number) => void;
   className?: string;
+  initialQuantity?: number;
 }
 
-const QuantitySelector = ({ onChange, className }: QuantitySelectorProps) => {
-  const [quantity, setQuantity] = useState(1);
+const QuantitySelector = ({
+  initialQuantity = 1,
+  onChange,
+  className,
+}: QuantitySelectorProps) => {
+  const [quantity, setQuantity] = useState(initialQuantity);
 
   useEffect(() => {
     if (typeof onChange === "function") {
