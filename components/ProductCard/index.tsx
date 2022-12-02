@@ -11,7 +11,7 @@ export interface ProductCardProps {
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Link
-      href={`/product/${kebabCase(product.title)}`}
+      href={`/product/${kebabCase(product.title)}/${product.id}`}
       className="relative flex flex-col max-h-[420px] max-w-[280px] cursor-pointer"
     >
       <Image src={product.images[0].url} alt={product.title} fill />
