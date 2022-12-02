@@ -31,7 +31,7 @@ const Select = (props: SelectProps) => {
       onClickAway={hide}
       shouldShow={shouldShow}
     >
-      <div className="flex flex-col">
+      <div className="flex flex-col bg-white">
         {variants.map((variant) => (
           <Fragment key={variant.id}>
             <div

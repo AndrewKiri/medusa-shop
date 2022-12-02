@@ -1,15 +1,17 @@
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import { useProduct } from "medusa-react";
 import Select from "../../../components/Select";
+import QuantitySelector from "../../../components/QuantitySelector";
 
 const ProductPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const { product } = useProduct(id as string);
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState("--");
 
   return product ? (
     <>
@@ -21,7 +23,9 @@ const ProductPage = () => {
 
       <div className="flex flex-col w-full h-full">
         <div className="flex justify-center py-2">
-          <Image src="/logo.svg" alt="Medusa Logo" width={72} height={16} />
+          <Link href="https://medusajs.com/">
+            <Image src="/logo.svg" alt="Medusa Logo" width={72} height={16} />
+          </Link>
         </div>
         <div className="flex flex-row w-full h-full">
           <div className="relative w-[50%]">
@@ -38,6 +42,7 @@ const ProductPage = () => {
                 setPrice(`€ ${(price?.amount / 100).toFixed(2)}`);
               }}
             />
+            <QuantitySelector className="mt-8" />
           </div>
         </div>
       </div>

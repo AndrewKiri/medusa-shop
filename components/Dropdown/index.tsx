@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { twMerge } from "tailwind-merge";
-import classNames from "classnames";
 import { motion, AnimatePresence } from "framer-motion";
 import { useClickAway } from "react-use";
 
@@ -24,7 +23,7 @@ export const Dropdown = ({
 
   return (
     <div
-      className={classNames("flex flex-col relative", containerClassName)}
+      className={twMerge("flex flex-col relative", containerClassName)}
       ref={ref}
     >
       {cta}
@@ -35,11 +34,9 @@ export const Dropdown = ({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 30 }}
-            className={classNames(
-              twMerge(
-                "absolute top-full min-w-full flex flex-col py-1 mt-1 max-h-96 overflow-y-scroll z-10 border-solid border-2 border-slate-200",
-                className
-              )
+            className={twMerge(
+              "absolute top-full min-w-full flex flex-col py-1 mt-1 max-h-96 overflow-y-scroll z-10 border-solid border-2 border-slate-200",
+              className
             )}
           >
             {children}
