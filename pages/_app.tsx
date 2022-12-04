@@ -2,6 +2,7 @@ import * as React from "react";
 import { QueryClient } from "react-query";
 import { MedusaProvider } from "medusa-react";
 import type { AppProps } from "next/app";
+import { Provider } from "../store";
 import "../styles/globals.css";
 
 // Your react-query's query client config
@@ -21,7 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
       queryClientProviderProps={{ client: queryClient }}
       baseUrl="/api"
     >
-      <Component {...pageProps} />
+      <Provider initialState={pageProps.initialState}>
+        <Component {...pageProps} />
+      </Provider>
     </MedusaProvider>
   );
 }
