@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -9,21 +8,18 @@ import { ProductVariant } from "@medusajs/medusa";
 import Select from "../../../components/Select";
 import QuantitySelector from "../../../components/QuantitySelector";
 import { useCartStore } from "../../../store";
+import Header from "../../../components/Header";
 
 const INITIAL_QUANTITY = 1;
 
 const ProductPage = observer(() => {
-  const cartStore = useCartStore();
   const router = useRouter();
   const { id } = router.query;
+  const cartStore = useCartStore();
   const { product } = useProduct(id as string);
   const [selectedQuantity, setSelectedQuantity] = useState(INITIAL_QUANTITY);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>();
   const [price, setPrice] = useState("--");
-
-  useEffect(() => {
-    console.log(JSON.parse(JSON.stringify(cartStore.items)));
-  }, [cartStore.items]);
 
   return product ? (
     <>
@@ -34,11 +30,7 @@ const ProductPage = observer(() => {
       </Head>
 
       <div className="flex flex-col w-full h-full">
-        <div className="flex justify-center py-2">
-          <Link href="/">
-            <Image src="/logo.svg" alt="Medusa Logo" width={72} height={16} />
-          </Link>
-        </div>
+        <Header />
         <div className="flex flex-row w-full h-full">
           <div className="relative w-[50%]">
             <Image src={product?.images[0].url} alt={product.title} fill />
@@ -65,7 +57,11 @@ const ProductPage = observer(() => {
             <button
               onClick={() => {
                 if (selectedVariant) {
-                  cartStore.add(selectedQuantity, selectedVariant);
+                  cartStore.cart.add(
+                    selectedQuantity,
+                    product,
+                    selectedVariant
+                  );
                 }
               }}
               className={`inline-block mt-4 py-2 px-4 ${

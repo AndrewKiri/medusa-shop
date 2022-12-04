@@ -8,7 +8,7 @@ let cartStore: CartStore;
 const StoreContext = createContext<CartStore | undefined>(undefined);
 StoreContext.displayName = "StoreContext";
 
-export function useCartStore() {
+export function useCartStore(): CartStore {
   const context = useContext(StoreContext);
   if (context === undefined) {
     throw new Error("useRootStore must be used within RootStoreProvider");

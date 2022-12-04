@@ -1,7 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
 import ProductsGrid from "../components/ProductsGrid";
+import Header from "../components/Header";
 
 export default function Home() {
   return (
@@ -13,11 +12,7 @@ export default function Home() {
       </Head>
 
       <div className="flex flex-col w-full h-full">
-        <div className="flex justify-center py-2">
-          <Link href="https://medusajs.com/">
-            <Image src="/logo.svg" alt="Medusa Logo" width={72} height={16} />
-          </Link>
-        </div>
+        <Header />
         <ProductsGrid />
       </div>
     </>
